@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>die abstrakte Banane</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="top"></div>
+    <div class="anleitung">
+        <p>1. Lies den Text <a href="#bananen-text" class="link-banane">Die abstrakte Banane</a> und stelle dir die drei Fragen.</p>
+        <p>2. Visualisiere deine abstrakte Banane. Du kannst hierfür den Generator nutzen oder sie selbst malen. Die Farbfelder müssen miteinander verbunden sein.</p>
+        <p>3. Teile deine abstrakte Banane als Bild und optional auch mit einer Bildunterschrift anonym auf <a href="https://www.instagram.com/dieabstraktebanane" class="link">@dieabstraktebanane</a>.</p>
+    </div>
+    <div class="programm">
+        <div id="pixel-grid"></div>
+        <button id="generateButton" onclick="generateBanana()">Generate</button>
+        <div id="colorSlider">
+            <label for="hue">Farbe</label>
+            <input type="range" id="hue" name="hue" min="0" max="360">
+            <input type="text" id="hexInput" name="hexInput" maxlength="7" value="#ffff00" style="width: 7ch;">
+            <div id="colorDisplay"></div>
+        </div>
+        <button id="downloadButton" onclick="downloadImage()">Download</button>
+        <script src="script.js"></script>
+    </div>
+
+    <div class="bananen-text" id="bananen-text">
+        <h1>Die abstrakte Banane</h1>
+        <div class="image-column">
+            <img src="img/1.png" alt="Die abstrakte Banane - Bild 1">
+            <img src="img/2.png" alt="Die abstrakte Banane - Bild 2">
+            <img src="img/3.png" alt="Die abstrakte Banane - Bild 3">
+            <img src="img/4.png" alt="Die abstrakte Banane - Bild 4">
+            <img src="img/5.png" alt="Die abstrakte Banane - Bild 5">
+            <img src="img/6.png" alt="Die abstrakte Banane - Bild 6">
+            <img src="img/7.png" alt="Die abstrakte Banane - Bild 7">
+            <img src="img/8.png" alt="Die abstrakte Banane - Bild 8">
+            <img src="img/9.png" alt="Die abstrakte Banane - Bild 9">
+            <img src="img/10.png" alt="Die abstrakte Banane - Bild 10">
+            <img src="img/11.png" alt="Die abstrakte Banane - Bild 11">
+            <img src="img/12.png" alt="Die abstrakte Banane - Bild 12">
+            <img src="img/13.png" alt="Die abstrakte Banane - Bild 13">
+            <img src="img/14.png" alt="Die abstrakte Banane - Bild 14">
+            <img src="img/15.png" alt="Die abstrakte Banane - Bild 15">
+            <img src="img/16.png" alt="Die abstrakte Banane - Bild 16">
+            <img src="img/17.png" alt="Die abstrakte Banane - Bild 17">
+            <img src="img/18.png" alt="Die abstrakte Banane - Bild 18">
+            <img src="img/19.png" alt="Die abstrakte Banane - Bild 19">
+            <img src="img/20.png" alt="Die abstrakte Banane - Bild 20">
+            <img src="img/21.png" alt="Die abstrakte Banane - Bild 21">
+            <img src="img/22.png" alt="Die abstrakte Banane - Bild 22">
+            <img src="img/23.png" alt="Die abstrakte Banane - Bild 23">
+            <img src="img/24.png" alt="Die abstrakte Banane - Bild 24">
+            <img src="img/25.png" alt="Die abstrakte Banane - Bild 25">
+            <img src="img/26.png" alt="Die abstrakte Banane - Bild 26">
+            <img src="img/27.png" alt="Die abstrakte Banane - Bild 27">
+            <img src="img/28.png" alt="Die abstrakte Banane - Bild 28">
+        </div>
+        <a class="link-hoch">Zurück nach oben</a>
+    </div>
+    <script src="scroll-fast.js"></script>
+    <script src="scroll-slow.js"></script>
+    </body>
+</body>
+</html>
