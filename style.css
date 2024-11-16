@@ -33,6 +33,9 @@ h1 {
     font-weight: 700; /* Bold 700 für den Titel */
     margin-bottom: 20px; /* Abstand unter dem Titel */
     color: #ffffff;
+    white-space: nowrap; /* Verhindert Umbruch */
+    overflow: hidden; /* Schneidet Text ab, falls nötig */
+    text-overflow: ellipsis; /* Zeigt "..." an, falls der Text zu lang wird */
 }
 
 .link-banane,
@@ -167,4 +170,63 @@ button {
     width: 100%; /* Füllt die gesamte Zelle aus */
     height: 100%; /* Gleiche Höhe für quadratische Form */
     transition: background-color 0.3s ease;
+}
+
+/* Responsive Design für Smartphones */
+@media (max-width: 768px) {
+    body {
+        font-size: 1.2em; /* Reduziere die Schriftgröße für kleinere Bildschirme */
+        margin-top: 20px; /* Weniger Abstand nach oben */
+        padding: 0 10px; /* Innenabstand für bessere Lesbarkeit */
+    }
+
+    .anleitung {
+        width: 100%; /* Nutze die volle Breite */
+        margin-top: 30px; /* Weniger Abstand nach oben */
+        margin-bottom: 30px; /* Weniger Abstand nach unten */
+    }
+
+    .programm {
+        width: 100%; /* Nutze die volle Breite */
+        align-items: center; /* Zentriere die Elemente */
+    }
+
+    #pixel-grid {
+        grid-template-columns: repeat(3, 90px); /* Kleinere Pixel */
+        grid-template-rows: repeat(3, 90px);
+        gap: 8px; /* Kleinere Lücken zwischen den Pixeln */
+    }
+
+    .pixel {
+        width: 90px;
+        height: 90px;
+    }
+
+    #colorDisplay {
+        width: 90px; /* Kleineres Farbfeld */
+        height: 90px;
+    }
+
+    button {
+        padding: 8px 15px; /* Kleinere Buttons */
+        font-size: 20px;
+    }
+
+    .image-column img {
+        width: 90%; /* Reduziere Bildgröße für kleine Bildschirme */
+    }
+
+    .bananen-titel {
+        font-size: 1.5em;
+    }
+
+    .bananen-text {
+        width: auto; /* Passe Breite automatisch an */
+        padding: 0 20px; /* Innenabstand für bessere Lesbarkeit */
+    }
+
+    .grid-background {
+        grid-template-columns: repeat(auto-fill, minmax(20px, 1fr)); /* Kleinere Zellen */
+        grid-auto-rows: 20px; /* Kleinere Höhe */
+    }
 }
