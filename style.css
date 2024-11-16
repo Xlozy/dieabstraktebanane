@@ -216,10 +216,6 @@ button {
         width: 90%; /* Reduziere Bildgröße für kleine Bildschirme */
     }
 
-    .bananen-titel {
-        font-size: 1.5em;
-    }
-
     .bananen-text {
         width: auto; /* Passe Breite automatisch an */
         padding: 0 20px; /* Innenabstand für bessere Lesbarkeit */
