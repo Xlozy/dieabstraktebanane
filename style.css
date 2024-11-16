@@ -86,7 +86,27 @@ button {
     padding: 10px 20px;
     font-size: 25px;
     font-family: "Anton", sans-serif;
+    color: #ffffff; /* Setze die Schriftfarbe explizit auf Weiß */
+    background-color: #333; /* Setze eine Hintergrundfarbe */
+    border: none; /* Entferne die Standardrahmen */
+    cursor: pointer; /* Ändere den Cursor auf "pointer" */
+    text-decoration: none; /* Entferne mögliche Unterstreichungen */
 }
+
+button:focus, 
+button:active {
+    outline: none; /* Entfernt den blauen Rahmen bei Fokus oder Aktivierung */
+}
+
+button:visited {
+    color: #ffffff; /* Stellt sicher, dass besuchte Buttons nicht blau werden */
+}
+
+button:hover {
+    background-color: #444; /* Optional: Ändere die Hintergrundfarbe beim Hover */
+    color: #ffffff; /* Behalte die Schriftfarbe beim Hover */
+}
+
 
 #colorSlider {
     display: flex;
