@@ -203,7 +203,7 @@ function downloadImage() {
     const ctx = canvas.getContext('2d');
 
     // Hintergrund auf weiß setzen
-    ctx.fillStyle = '#1b1a1a';
+    ctx.fillStyle = '#151515';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     // Zeichne die gefärbten Felder ohne Rasterlinien
