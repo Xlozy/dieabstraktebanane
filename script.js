@@ -189,24 +189,24 @@ function paintPixel(pixel, row, col) {
     }
 }
 
-// Funktion zum Herunterladen des Bildes
 function downloadImage() {
-    const pixelSize = 60; // Größe eines Pixels
-    const gap = 5; // Abstand zwischen den Pixeln
-    const borderSize = 5; // Neuer Rand von 5px
-    const gridSize = 3 * pixelSize + 2 * gap; // Größe des Rasters (180px)
-    const canvasSize = gridSize + 2 * borderSize; // Gesamtgröße des Canvas (190px)
+    const scaleFactor = 15; // Sehr hohe Auflösung
+    const pixelSize = 60 * scaleFactor; // Skalierte Pixelgröße
+    const gap = 5 * scaleFactor; // Skalierte Lücke
+    const borderSize = 5 * scaleFactor; // Skalierter Rand
+    const gridSize = 3 * pixelSize + 2 * gap; // Größe des Rasters
+    const canvasSize = gridSize + 2 * borderSize; // Gesamtgröße des Canvas
 
     const canvas = document.createElement('canvas');
     canvas.width = canvasSize;
     canvas.height = canvasSize;
     const ctx = canvas.getContext('2d');
 
-    // Hintergrund auf weiß setzen
+    // Hintergrundfarbe setzen
     ctx.fillStyle = '#151515';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // Zeichne die gefärbten Felder ohne Rasterlinien
+    // Pixel zeichnen
     paintedPixels.forEach((color, position) => {
         const row = Math.floor((position - 1) / 3);
         const col = (position - 1) % 3;
@@ -219,8 +219,49 @@ function downloadImage() {
         );
     });
 
+    // Generiere Metadaten im kompakten Format
+    const metaText = Array.from({ length: 9 }, (_, i) => {
+        const position = i + 1; // 1-basiert
+        if (paintedPixels.has(position)) {
+            let color = paintedPixels.get(position);
+            // Kürze Hexcode, falls möglich
+            if (
+                color.length === 7 && // Hex-Wert muss 7 Zeichen (inkl. #) lang sein
+                color[1] === color[2] && // Rot-Kanal: Gleiche Ziffern
+                color[3] === color[4] && // Grün-Kanal: Gleiche Ziffern
+                color[5] === color[6]    // Blau-Kanal: Gleiche Ziffern
+            ) {
+                color = color[1] + color[3] + color[5]; // Kürzung auf 3 Zeichen
+            }
+            return `#${color}`;
+        } else {
+            return `#`; // Leeres Feld
+        }
+    }).join(''); // Verbinde alle Felder in einer Zeile
+
+    // Berechnung der Textposition, rechtsbündig mit dem Abstand der Pixel
+    const fontSize = 1.0 * scaleFactor; // Lesbare, aber kleine Schrift
+    ctx.font = `${fontSize}px Arial`; // Schriftgröße festlegen
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.01)'; // Kaum sichtbarer Text (nahe Weiß mit Transparenz)
+    ctx.textAlign = 'right'; // Text rechtsbündig ausrichten
+    ctx.textBaseline = 'middle'; // Text vertikal zentrieren
+
+    const textX = canvas.width - borderSize; // Abstand vom rechten Rand wie bei Pixeln
+    const textY = canvas.height - borderSize / 2; // Unterer Rand
+    ctx.fillText(metaText, textX, textY); // Platzierung des Metatexts
+
+    // Zeitstempel für den Dateinamen
+    const now = new Date();
+    const date = now.toISOString().split('T')[0]; // Datum im Format YYYY-MM-DD
+    const time = now.toTimeString().split(' ')[0].replace(/:/g, '-'); // Zeit im Format HH-MM-SS
+    const fileName = `abstractbanana_${date}_${time}.png`;
+
+    // Herunterladen des Bildes
     const link = document.createElement('a');
-    link.download = 'abstrakte_banane.png';
+    link.download = fileName;
     link.href = canvas.toDataURL();
     link.click();
+
+    console.log(`Metatext: ${metaText}`); // Debug: Zeige Metadaten an
 }
+
