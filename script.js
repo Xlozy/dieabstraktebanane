@@ -219,49 +219,53 @@ function downloadImage() {
         );
     });
 
-    // Generiere Metadaten im kompakten Format
+    // Generiere Metadaten für das Bild
     const metaText = Array.from({ length: 9 }, (_, i) => {
-        const position = i + 1; // 1-basiert
+        const position = i + 1;
         if (paintedPixels.has(position)) {
             let color = paintedPixels.get(position);
-            // Kürze Hexcode, falls möglich
             if (
-                color.length === 7 && // Hex-Wert muss 7 Zeichen (inkl. #) lang sein
-                color[1] === color[2] && // Rot-Kanal: Gleiche Ziffern
-                color[3] === color[4] && // Grün-Kanal: Gleiche Ziffern
-                color[5] === color[6]    // Blau-Kanal: Gleiche Ziffern
+                color.length === 7 && // Hex-Wert muss 7 Zeichen lang sein
+                color[1] === color[2] && color[3] === color[4] && color[5] === color[6]
             ) {
-                color = color[1] + color[3] + color[5]; // Kürzung auf 3 Zeichen
+                color = `${color[1]}${color[3]}${color[5]}`; // Kürze Hexcode, wenn möglich
+            } else {
+                color = color.slice(1); // Entferne das führende #
             }
             return `#${color}`;
         } else {
-            return `#`; // Leeres Feld
+            return "#"; // Platzhalter für leeres Feld
         }
-    }).join(''); // Verbinde alle Felder in einer Zeile
+    }).join("");
 
-    // Berechnung der Textposition, rechtsbündig mit dem Abstand der Pixel
-    const fontSize = 1.0 * scaleFactor; // Lesbare, aber kleine Schrift
-    ctx.font = `${fontSize}px Arial`; // Schriftgröße festlegen
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.01)'; // Kaum sichtbarer Text (nahe Weiß mit Transparenz)
-    ctx.textAlign = 'right'; // Text rechtsbündig ausrichten
-    ctx.textBaseline = 'middle'; // Text vertikal zentrieren
-
-    const textX = canvas.width - borderSize; // Abstand vom rechten Rand wie bei Pixeln
-    const textY = canvas.height - borderSize / 2; // Unterer Rand
-    ctx.fillText(metaText, textX, textY); // Platzierung des Metatexts
-
-    // Zeitstempel für den Dateinamen
+    // Zeitstempel erstellen
     const now = new Date();
     const date = now.toISOString().split('T')[0]; // Datum im Format YYYY-MM-DD
-    const time = now.toTimeString().split(' ')[0].replace(/:/g, '-'); // Zeit im Format HH-MM-SS
-    const fileName = `abstractbanana_${date}_${time}.png`;
+    const time = now.toTimeString().split(' ')[0]; // Zeit im Format HH:MM:SS
+    const timestamp = `${date} ${time}`;
+
+    // Zeichne Metatext und Zeitstempel rechtsbündig ins Bild
+    const fontSize = 1.0 * scaleFactor; // Lesbare, kleine Schrift
+    ctx.font = `${fontSize}px Arial`;
+    ctx.fillStyle = 'rgba(100, 100, 100, 0.05)'; // Kaum sichtbarer Text
+    ctx.textAlign = 'right'; // Text rechtsbündig ausrichten
+    ctx.textBaseline = 'middle';
+
+    const textX = canvas.width - borderSize; // Abstand vom rechten Rand
+    const textY = canvas.height - borderSize / 2; // Unterer Rand
+    ctx.fillText(`${timestamp}  ${metaText}`, textX, textY);
+
+    // Generiere Dateinamen ohne Zeitstempel
+    let fileName = "AbBa";
+    fileName += metaText.replace(/#+$/, ""); // Entferne trailing #
 
     // Herunterladen des Bildes
     const link = document.createElement('a');
-    link.download = fileName;
+    link.download = `${fileName}.png`;
     link.href = canvas.toDataURL();
     link.click();
 
-    console.log(`Metatext: ${metaText}`); // Debug: Zeige Metadaten an
+    console.log(`Dateiname: ${fileName}`); // Debug
+    console.log(`Metatext: ${metaText}`); // Debug
 }
 
