@@ -107,6 +107,11 @@ button:hover {
     color: #ffffff; /* Behalte die Schriftfarbe beim Hover */
 }
 
+@media (hover: none) and (pointer: coarse) {
+    .pixel:hover {
+        transform: none; /* Hover-Effekt für Touchscreens entfernen */
+    }
+}
 
 #colorSlider {
     display: flex;
