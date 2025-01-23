@@ -264,22 +264,5 @@ function downloadImage() {
     link.download = `${fileName}.png`;
     link.href = canvas.toDataURL();
     link.click();
-
-    // 2. Bild in einem neuen Tab öffnen
-    const previewWindow = window.open('', '_blank');
-    if (previewWindow) {
-        previewWindow.document.title = "Bildvorschau";
-        previewWindow.document.body.style.margin = '0';
-        previewWindow.document.body.style.backgroundColor = '#151515';
-        const img = new Image();
-        img.src = imageData;
-        img.style.display = 'block';
-        img.style.margin = '0 auto';
-        img.style.maxWidth = '100%';
-        img.style.maxHeight = '100vh';
-        previewWindow.document.body.appendChild(img);
-    } else {
-        alert('Pop-up-Blocker verhindert die Vorschau.');
-    }
 }
 
