@@ -265,65 +265,21 @@ function downloadImage() {
     link.href = canvas.toDataURL();
     link.click();
 
-    // 2. Vorschau auf Smartphones oder als Modal auf allen Geräten
-    const isMobile = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
-    if (isMobile) {
-        const modal = document.createElement('div');
-        modal.style.position = 'fixed';
-        modal.style.top = '0';
-        modal.style.left = '0';
-        modal.style.width = '100%';
-        modal.style.height = '100%';
-        modal.style.backgroundColor = 'rgba(0, 0, 0, 0.9)';
-        modal.style.zIndex = '1000';
-        modal.style.display = 'flex';
-        modal.style.justifyContent = 'center';
-        modal.style.alignItems = 'center';
-        modal.style.flexDirection = 'column';
-
+    // 2. Bild in einem neuen Tab öffnen
+    const previewWindow = window.open('', '_blank');
+    if (previewWindow) {
+        previewWindow.document.title = "Bildvorschau";
+        previewWindow.document.body.style.margin = '0';
+        previewWindow.document.body.style.backgroundColor = '#151515';
         const img = new Image();
-        img.src = canvas.toDataURL('image/png');
-        img.style.maxWidth = '90%';
-        img.style.maxHeight = '90%';
-        img.style.border = '1px solid #ffffff';
-        img.style.borderRadius = '10px';
-
-        const closeButton = document.createElement('button');
-        closeButton.innerText = 'Schließen';
-        closeButton.style.marginTop = '20px';
-        closeButton.style.padding = '10px 20px';
-        closeButton.style.fontSize = '16px';
-        closeButton.style.color = '#ffffff';
-        closeButton.style.backgroundColor = '#333';
-        closeButton.style.border = 'none';
-        closeButton.style.borderRadius = '5px';
-        closeButton.style.cursor = 'pointer';
-
-        closeButton.addEventListener('click', () => {
-            document.body.removeChild(modal);
-        });
-
-        modal.appendChild(img);
-        modal.appendChild(closeButton);
-        document.body.appendChild(modal);
+        img.src = imageData;
+        img.style.display = 'block';
+        img.style.margin = '0 auto';
+        img.style.maxWidth = '100%';
+        img.style.maxHeight = '100vh';
+        previewWindow.document.body.appendChild(img);
     } else {
-        const previewWindow = window.open('', '_blank');
-        if (previewWindow) {
-            previewWindow.document.body.style.margin = '0';
-            previewWindow.document.body.style.backgroundColor = '#151515'; // Gleiche Hintergrundfarbe wie Bild
-            const img = new Image();
-            img.src = canvas.toDataURL('image/png');
-            img.style.display = 'block'; // Zentrierung sicherstellen
-            img.style.margin = '0 auto'; // Horizontal zentrieren
-            img.style.maxWidth = '100%'; // Skalierung anpassen
-            img.style.maxHeight = '100vh'; // Vertikale Begrenzung
-            previewWindow.document.body.appendChild(img);
-        } else {
-            alert('Pop-up-Blocker verhindert die Vorschau.');
-        }
+        alert('Pop-up-Blocker verhindert die Vorschau.');
     }
-
-    console.log(`Dateiname: ${fileName}`); // Debug
-    console.log(`Metatext: ${metaText}`); // Debug
 }
 
