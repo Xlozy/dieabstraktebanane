@@ -265,6 +265,41 @@ function downloadImage() {
     link.href = canvas.toDataURL();
     link.click();
 
+ // 2. Vorschau des Bildes in einem neuen Fenster
+ const imageData = canvas.toDataURL('image/png');
+ const previewWindow = window.open('', '_blank');
+ if (previewWindow) {
+     previewWindow.document.write(`
+         <!DOCTYPE html>
+         <html lang="en">
+         <head>
+             <title>Bildvorschau</title>
+             <style>
+                 body {
+                     margin: 0;
+                     display: flex;
+                     align-items: center;
+                     justify-content: center;
+                     background-color: #151515;
+                     height: 100vh;
+                     overflow: hidden;
+                 }
+                 img {
+                     max-width: 100%;
+                     max-height: 100%;
+                 }
+             </style>
+         </head>
+         <body>
+             <img src="${imageData}" alt="Vorschau">
+         </body>
+         </html>
+     `);
+     previewWindow.document.close();
+ } else {
+     alert('Pop-up-Blocker verhindert die Vorschau.');
+ }
+
     console.log(`Dateiname: ${fileName}`); // Debug
     console.log(`Metatext: ${metaText}`); // Debug
 }
