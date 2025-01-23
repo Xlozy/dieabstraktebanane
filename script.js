@@ -259,27 +259,11 @@ function downloadImage() {
     let fileName = "AbBa";
     fileName += metaText.replace(/#+$/, ""); // Entferne trailing #
 
-    // 1. Herunterladen des Bildes
+    // Herunterladen des Bildes
     const link = document.createElement('a');
     link.download = `${fileName}.png`;
     link.href = canvas.toDataURL();
     link.click();
-
-    // 2. Vorschau des Bildes in einem neuen Fenster
-    const previewWindow = window.open('', '_blank');
-    if (previewWindow) {
-        previewWindow.document.body.style.margin = '0';
-        previewWindow.document.body.style.backgroundColor = '#151515'; // Gleiche Hintergrundfarbe wie Bild
-        const img = new Image();
-        img.src = canvas.toDataURL('image/png');
-        img.style.display = 'block'; // Zentrierung sicherstellen
-        img.style.margin = '0 auto'; // Horizontal zentrieren
-        img.style.maxWidth = '100%'; // Skalierung anpassen, falls Fenster zu klein ist
-        img.style.maxHeight = '100vh'; // Vertikale Begrenzung für kleinere Bildschirme
-        previewWindow.document.body.appendChild(img);
-    } else {
-        alert('Pop-up-Blocker verhindert die Vorschau.');
-    }
 
     console.log(`Dateiname: ${fileName}`); // Debug
     console.log(`Metatext: ${metaText}`); // Debug
